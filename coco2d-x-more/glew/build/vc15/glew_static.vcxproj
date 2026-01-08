@@ -93,7 +93,7 @@
     <TargetName>glew32sd</TargetName>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <OutDir>C:\coco2d-x-more\libs\$(PlatformName)\$(Configuration)</OutDir>
+    <OutDir>..\..\..\libs\$(PlatformName)\$(Configuration)</OutDir>
     <IntDir>tmp\$(TargetName)\$(Configuration)\$(PlatformName)\</IntDir>
     <TargetName>glew32sd</TargetName>
   </PropertyGroup>
