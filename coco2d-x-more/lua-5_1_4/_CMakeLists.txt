@@ -1,0 +1,67 @@
+#指定运行此配置文件所需的 CMake 的最低版本
+cmake_minimum_required (VERSION 2.8)
+
+# 项目名称
+project (lua)
+
+ 
+#file(GLOB_RECURSE variable [RELATIVE path] 
+#     [FOLLOW_SYMLINKS] [globbingexpressions]...)
+#
+#GLOB_RECURSE 与GLOB类似，区别在于它会遍历匹配目录的所有文件以及子目录下面的文件。
+#对于属于符号链接的子目录，只有FOLLOW_SYMLINKS指定一或者cmake策略CMP0009没有设置为NEW时，才会遍历这些目录。
+
+#搜索头文件
+file(GLOB_RECURSE CURRENT_HEADERS  *.h *.hpp) 
+
+#增加头文件目录 Include
+source_group("Include" FILES ${CURRENT_HEADERS}) 
+ 
+
+#目录是相对 CM
+#SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../../out) 
+SET(LIBRARY_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../../out) 
+message("lua.so build to:" ${LIBRARY_OUTPUT_PATH})
+
+#设置可执行文件的输出目录
+#SET(EXECUTABLE_OUTPUT_PATH ${PROJECT_SOURCE_DIR}/../../out) 
+#SET(EXECUTABLE_OUTPUT_PATH /data/coovanftp/ftp/server_srv/whserver/ssss/out) 
+
+#MESSAGE(STATUS "EXECUTABLE PROJECT_SOURCE_DIR:" ${PROJECT_SOURCE_DIR}) 
+#MESSAGE(STATUS "DIR:" ${EXECUTABLE_OUTPUT_PATH}) 
+#用 main.cc MathFunctions.cc 生成 Demo 可执行文件
+#add_executable(Demo main.cc MathFunctions.cc)
+
+#搜索目录 dir 并把结果保存到变量 DIR_SRCS
+#aux_source_directory(<dir> <DIR_SRCS>)
+#用 DIR_SRCS 的文件生成 Demo 可执行文件
+#add_executable(Demo ${DIR_SRCS})
+
+
+IF (WIN32)  
+    ADD_DEFINITIONS(-DLUA_BUILD_AS_DLL)
+ELSEIF (UNIX)  
+    ADD_DEFINITIONS(-DLUA_USE_DLOPEN) 
+ENDIF ()  
+
+
+#添加头文件目录
+#include_directories(/usr/include /usr/local/include)
+
+aux_source_directory(. lua_src)
+
+#添加头文件目录
+#include_directories(${PROJECT_SOURCE_DIR}/../core)
+
+#添加需要链接的库文件目录
+#link_directories(${PROJECT_SOURCE_DIR}/../../out)
+
+#add_executable(lua ${lua_src})
+# 生成链接库
+add_library (lua SHARED ${lua_src} ${CURRENT_HEADERS}) 
+ 
+ 
+IF (UNIX)  
+    target_link_libraries(lua dl)
+ENDIF ()  
+#target_link_libraries(lua blue_core)
