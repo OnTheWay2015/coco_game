@@ -46,7 +46,7 @@ extern "C" {
 #else
 # define LIBICONV_SHLIB_EXPORTED
 #endif
-extern LIBICONV_SHLIB_EXPORTED __declspec (dllimport) int _libiconv_version; /* Likewise */
+extern LIBICONV_SHLIB_EXPORTED  int _libiconv_version; /* Likewise */
 
 #ifdef __cplusplus
 }

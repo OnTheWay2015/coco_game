@@ -6,16 +6,16 @@
 srcdir = .
 
 # Directories used by "make install":
-prefix = /c/local/build
+prefix = /d/local/build
 local_prefix = /usr/local
 exec_prefix = ${prefix}
 libdir = ${exec_prefix}/lib
 
 # Programs used by "make":
 CC = x86_64-w64-mingw32-gcc
-CFLAGS = -std=c99 
-CPPFLAGS = 
-LDFLAGS =  $(LDFLAGS_yes)
+CFLAGS = -I/mingw64/include -std=c99 
+CPPFLAGS = -I/mingw64/include
+LDFLAGS = -L/mingw64/lib -lws2_32 $(LDFLAGS_no)
 LDFLAGS_yes = -Wl,--export-all-symbols
 LDFLAGS_no =
 INCLUDES = -I. -I$(srcdir) -I../include -I$(srcdir)/../include -I.. -I$(srcdir)/..
@@ -58,8 +58,8 @@ top_builddir = ..
 
 SOURCES = $(srcdir)/iconv.c $(srcdir)/../libcharset/lib/localcharset.c $(srcdir)/compat.c
 
-OBJECTS = iconv.lo localcharset.lo compat.lo   $(OBJECTS_RES_yes)
- 
+OBJECTS = iconv.lo localcharset.lo compat.lo $(OBJECTS_EXP_no) $(OBJECTS_RES_yes)
+OBJECTS_EXP_yes = iconv-exports.lo
 OBJECTS_EXP_no =
 OBJECTS_RES_yes = libiconv.res.lo
 OBJECTS_RES_no =
@@ -85,6 +85,8 @@ localcharset.lo : $(srcdir)/../libcharset/lib/localcharset.c
 compat.lo : $(srcdir)/compat.c
 	$(LIBTOOL_COMPILE) $(CC) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(DEFS) -c $(srcdir)/compat.c
 
+iconv-exports.lo : $(srcdir)/../woe32dll/iconv-exports.c
+	$(LIBTOOL_COMPILE) $(CC) $(INCLUDES) $(CPPFLAGS) $(CFLAGS) $(DEFS) -c $(srcdir)/../woe32dll/iconv-exports.c
 
 libiconv.res.lo : $(srcdir)/../windows/libiconv.rc
 	$(LIBTOOL_COMPILE) --tag=RC $(RC) `$(SHELL) $(srcdir)/../windows/windres-options --escape $(PACKAGE_VERSION)` -i $(srcdir)/../windows/libiconv.rc -o libiconv.res.lo --output-format=coff

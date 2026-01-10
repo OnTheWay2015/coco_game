@@ -7,7 +7,7 @@ srcdir = .
 top_srcdir = ..
 
 # Directories used by "make install":
-prefix = /c/local/build
+prefix = /d/local/build
 local_prefix = /usr/local
 exec_prefix = ${prefix}
 bindir = ${exec_prefix}/bin
@@ -18,9 +18,9 @@ localedir = ${datarootdir}/locale
 
 # Programs used by "make":
 CC = x86_64-w64-mingw32-gcc
-CFLAGS = -std=c99
-CPPFLAGS = 
-LDFLAGS = 
+CFLAGS = -I/mingw64/include -std=c99
+CPPFLAGS = -I/mingw64/include
+LDFLAGS = -L/mingw64/lib -lws2_32
 INCLUDES = -I. -I$(srcdir) -I.. -I../include -I$(srcdir)/../include -I../srclib -I$(srcdir)/../srclib
 LIBTOOL = /bin/sh $(top_builddir)/libtool
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile
@@ -40,7 +40,7 @@ mkinstalldirs = $(SHELL) ../build-aux/mkinstalldirs
 # Programs used by "make install-strip":
 STRIP = /mingw64/bin/strip
 INSTALL_STRIP_PROGRAM = $(install_sh) -c -s
-install_sh = ${SHELL} /c/coco2d-x-more/libiconv-1.18/build-aux/install-sh
+install_sh = ${SHELL} /d/git_work/coco_game/coco2d-x-more/libiconv-1.18/build-aux/install-sh
 
 #### End of system configuration section. ####
 
@@ -112,8 +112,8 @@ iconv_LDFLAGS = `if test -n '$(RELOCATABLE_LDFLAGS)'; then $(RELOCATABLE_LDFLAGS
 install : all force
 	if [ ! -d $(DESTDIR)$(bindir) ] ; then $(mkinstalldirs) $(DESTDIR)$(bindir) ; fi
 	case "mingw32" in \
-	  hpux*) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.o ../srclib/libicrt.a -L$(DESTDIR)$(libdir) -liconv -lintl $(OBJECTS_RES_yes) `if test -n '$(DESTDIR)'; then echo " -Wl,+b -Wl,$(libdir)"; fi` -o iconv$(EXEEXT);; \
-	  *) $(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.o ../srclib/libicrt.a -lintl $(DESTDIR)$(libdir)/libiconv.la $(OBJECTS_RES_yes) -o iconv$(EXEEXT);; \
+	  hpux*) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.o ../srclib/libicrt.a -L$(DESTDIR)$(libdir) -liconv /mingw64/lib/libintl.dll.a -L/mingw64/lib $(OBJECTS_RES_yes) `if test -n '$(DESTDIR)'; then echo " -Wl,+b -Wl,$(libdir)"; fi` -o iconv$(EXEEXT);; \
+	  *) $(LIBTOOL_LINK) $(CC) $(LDFLAGS) $(CFLAGS) $(iconv_LDFLAGS) iconv.o ../srclib/libicrt.a -L/mingw64/lib -lintl -R/mingw64/lib $(DESTDIR)$(libdir)/libiconv.la $(OBJECTS_RES_yes) -o iconv$(EXEEXT);; \
 	esac
 	$(INSTALL_PROGRAM_ENV) $(LIBTOOL_INSTALL) $(INSTALL_PROGRAM) iconv$(EXEEXT) $(DESTDIR)$(bindir)/iconv$(EXEEXT)
 

@@ -71,7 +71,7 @@
 
 /* Define to the directory where to find the localizations of the translation
    domain 'gnulib', as a C string. */
-#define GNULIB_LOCALEDIR "/c/local/build/share/locale"
+#define GNULIB_LOCALEDIR "/d/local/build/share/locale"
 
 /* Define to a C preprocessor expression that evaluates to 1 or 0, depending
    whether the gnulib module msvc-nothrow shall be considered present. */
@@ -759,7 +759,7 @@
 #define ICONV_CONST 
 
 /* Define to the value of ${prefix}, as a string. */
-#define INSTALLPREFIX "/c/local/build"
+#define INSTALLPREFIX "/d/local/build"
 
 /* Define to 1 if 'lstat' dereferences a symlink specified with a trailing
    slash. */

@@ -6,16 +6,16 @@
 srcdir = .
 
 # Directories used by "make install":
-prefix = /c/local/build
+prefix = /d/local/build
 local_prefix = /usr/local
 exec_prefix = ${prefix}
 libdir = ${exec_prefix}/lib
 
 # Programs used by "make":
 CC = x86_64-w64-mingw32-gcc
-CFLAGS = -std=c99 
+CFLAGS = -I/mingw64/include -std=c99 
 CPPFLAGS = 
-LDFLAGS = 
+LDFLAGS = -L/mingw64/lib -lws2_32
 INCLUDES = -I. -I$(srcdir) -I.. -I$(srcdir)/.. -I../include
 # -DBUILDING_LIBCHARSET: Change expansion of LIBCHARSET_SHLIB_EXPORTED macro.
 DEFS = -DBUILDING_LIBCHARSET -DHAVE_CONFIG_H

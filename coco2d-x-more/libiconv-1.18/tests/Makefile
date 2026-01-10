@@ -7,9 +7,9 @@ srcdir = .
 
 # Programs used by "make":
 CC = x86_64-w64-mingw32-gcc
-CFLAGS = -std=c99
-CPPFLAGS = 
-LDFLAGS = 
+CFLAGS = -I/mingw64/include -std=c99
+CPPFLAGS = -I/mingw64/include
+LDFLAGS = -L/mingw64/lib -lws2_32
 INCLUDES = -I. -I$(srcdir) -I../include -I$(srcdir)/../include -I../srclib -I$(srcdir)/../srclib -I..
 LIBTOOL = /bin/sh $(top_builddir)/libtool
 LIBTOOL_COMPILE = $(LIBTOOL) --mode=compile

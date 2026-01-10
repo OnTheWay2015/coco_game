@@ -7,7 +7,7 @@
 srcdir = .
 
 # Directories used by "make install":
-prefix = /c/local/build
+prefix = /d/local/build
 local_prefix = /usr/local
 exec_prefix = ${prefix}
 datarootdir = ${prefix}/share
