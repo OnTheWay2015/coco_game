@@ -68,8 +68,13 @@ Cocos2d-x 4.0 的UIEditBoxImpl-win32.cpp代码中仍使用了老旧的 GWL_WNDPR
   
   
   
-  
-7.  用的是 glew 静态库，所以在用的工程(cocos2d.lib)里加上编译宏  GLEW_STATIC
+7 报错 Windows Kits\10\Include\10.0.26100.0\ucrt\corecrt_malloc.h(58,24): error C2485: “__declspec(常数)”不是可识别的扩展属性
+1>(编译源文件“../../../../src/libressl/crypto/aes/aes_core.c”)
+	
+	加上编译宏  _CRT_SUPPRESS_RESTRICT
+
+编译  crypto 库时报这了这个错 
+7.1  用的是 glew 静态库，所以在用的工程(cocos2d.lib)里加上编译宏  GLEW_STATIC
 	用的是 openal 静态库，所以加上 AL_LIBTYPE_STATIC
 	用的是 curl 静态库，所以加上 CURL_STATICLIB
   
